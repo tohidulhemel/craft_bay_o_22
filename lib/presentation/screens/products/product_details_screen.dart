@@ -103,6 +103,25 @@ class _ProductDetailsViewState extends State<_ProductDetailsView> {
     final totalPrice = product.currentPrice * state.quantity;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFF3F4F6),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 18,
+            color: AppColors.textDark,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'Product Details',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.textDark,
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -401,59 +420,41 @@ class _ImageHeader extends StatelessWidget {
     final itemCount = photos.isEmpty ? 1 : photos.length;
 
     return Container(
-      height: 270,
+      height: 230,
       color: const Color(0xFFF3F4F6),
       child: Stack(
         children: [
-          PageView.builder(
-            controller: controller,
-            itemCount: itemCount,
-            onPageChanged: onPageChanged,
-            itemBuilder: (context, index) {
-              if (photos.isEmpty) {
-                return Center(
-                  child: Image.asset(AppAssets.shoe, fit: BoxFit.contain),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              16,
+              8,
+              16,
+              itemCount > 1 ? 32 : 12,
+            ),
+            child: PageView.builder(
+              controller: controller,
+              itemCount: itemCount,
+              onPageChanged: onPageChanged,
+              itemBuilder: (context, index) {
+                if (photos.isEmpty) {
+                  return Center(
+                    child: Image.asset(AppAssets.shoe, fit: BoxFit.contain),
+                  );
+                }
+                return CachedNetworkImage(
+                  imageUrl: photos[index],
+                  fit: BoxFit.contain,
+                  placeholder: (_, _) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (_, _, _) => const Center(
+                    child: Icon(
+                      Icons.broken_image_outlined,
+                      size: 48,
+                      color: AppColors.textGrey,
+                    ),
+                  ),
                 );
-              }
-              return CachedNetworkImage(
-                imageUrl: photos[index],
-                fit: BoxFit.contain,
-                placeholder: (_, _) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (_, _, _) => const Center(
-                  child: Icon(
-                    Icons.broken_image_outlined,
-                    size: 48,
-                    color: AppColors.textGrey,
-                  ),
-                ),
-              );
-            },
-          ),
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 18,
-                      color: AppColors.textDark,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Text(
-                    'Product Details',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textDark,
-                    ),
-                  ),
-                ],
-              ),
+              },
             ),
           ),
           if (itemCount > 1)
