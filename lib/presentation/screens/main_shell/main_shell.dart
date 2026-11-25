@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../state/nav_state.dart';
+import '../cart/cart_screen.dart';
+import '../categories/categories_screen.dart';
+import '../home/home_screen.dart';
+import '../wishlist/wishlist_screen.dart';
 
 class MainShell extends StatelessWidget {
   const MainShell({super.key});
 
-  // Placeholders. Each one is replaced by its real screen in a later step.
   static const List<Widget> _tabs = [
-    _TabPlaceholder('Home'),
-    _TabPlaceholder('Categories'),
-    _TabPlaceholder('Cart'),
-    _TabPlaceholder('Wish List'),
+    HomeScreen(),
+    CategoriesScreen(),
+    CartScreen(),
+    WishlistScreen(),
   ];
 
   @override
@@ -52,16 +55,5 @@ class MainShell extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _TabPlaceholder extends StatelessWidget {
-  const _TabPlaceholder(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(title, style: const TextStyle(fontSize: 20)));
   }
 }

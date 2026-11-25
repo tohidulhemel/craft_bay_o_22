@@ -21,4 +21,9 @@ class AuthRemoteDataSource {
 
   Future<dynamic> resendOtp(String email) =>
       _client.post(ApiEndpoints.resendOtp, body: {'email': email});
+
+  Future<dynamic> getProfile() => _client.get(ApiEndpoints.profile);
+
+  Future<dynamic> updateProfile(Map<String, dynamic> body) =>
+      _client.patch(ApiEndpoints.profile, body: body);
 }
