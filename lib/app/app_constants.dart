@@ -8,4 +8,5 @@ class AppConstants {
   static const Duration requestTimeout = Duration(seconds: 60);
 
   static const double screenPadding = 16;
+  static const bool logResponseBody = true;
 }

@@ -18,4 +18,6 @@ class NavState extends ChangeNotifier {
   }
 
   void goHome() => goTo(home);
+
+  
 }

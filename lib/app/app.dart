@@ -1,3 +1,7 @@
+import 'package:craft_bay_app/app/dependency_injection.dart';
+import 'package:craft_bay_app/data/datasources/auth_remote_datasource.dart';
+import 'package:craft_bay_app/data/repositories/auth_repository_impl.dart';
+import 'package:craft_bay_app/presentation/state/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +18,14 @@ class CraftyBayApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => NavState()),
+         ChangeNotifierProvider(
+          create: (_) => AuthState(
+            AuthRepositoryImpl(
+              AuthRemoteDataSource(AppDependencies.apiClient),
+              AppDependencies.authStorage,
+            ),
+          ),
+        ),
         // More providers will be added here in later steps.
       ],
       child: MaterialApp(

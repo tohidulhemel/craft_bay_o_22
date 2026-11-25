@@ -59,8 +59,9 @@ class ApiClient {
       })()
           .timeout(AppConstants.requestTimeout);
 
-      if (kDebugMode) {
+            if (kDebugMode) {
         debugPrint('[$method] $uri -> ${response.statusCode}');
+        if (AppConstants.logResponseBody) debugPrint(response.body);
       }
 
       final decoded = _decode(response.body);
